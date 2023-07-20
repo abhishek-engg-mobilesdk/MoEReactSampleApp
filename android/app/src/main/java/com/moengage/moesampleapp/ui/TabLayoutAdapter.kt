@@ -3,7 +3,6 @@ package com.moengage.moesampleapp.ui
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.facebook.react.ReactFragment
 
 class TabLayoutAdapter(
     fragmentManager: FragmentManager,
@@ -14,12 +13,7 @@ class TabLayoutAdapter(
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> {
-                ReactFragment.Builder()
-                    .setComponentName("MoESampleApp")
-                    .setFabricEnabled(false)
-                    .build()
-            }
+            0 -> NativeFragment()
             1 -> HomeTabLayout()
             else -> throw Exception("Invalid Fragment Index")
         }

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
     StyleSheet,
     Text,
     View,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    RefreshControl
 } from "react-native";
 import ReactMoE from "react-native-moengage";
 
@@ -376,9 +377,21 @@ const _data = [
 ];
 
 export const ScrollTest = () => {
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+            ReactMoE.showInApp()
+        }, 2000);
+    }, []);
+
     return (
         <View style={{ backgroundColor: "white" }}>
             <FlatList
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 data={_data}
                 renderItem={({ item }) => (
                     <TouchableOpacity
